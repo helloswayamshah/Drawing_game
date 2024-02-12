@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+canvas {
+  cursor: none;
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  margin-top: 1%;
+}
+
+#Brush {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  margin-top: 1%;
+}
+
+#BrushSize {
+  display: flex;
+  justify-content: space-around;
+}
