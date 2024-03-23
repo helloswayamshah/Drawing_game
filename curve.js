@@ -1,5 +1,6 @@
 class Curve {
   constructor() {
+    this.type = "curve";
     this.points = [];
     this.color = "black";
     this.weight = 10;

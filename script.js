@@ -1,3 +1,4 @@
+
 let curves = [];
 
 const BACKGROUND_COLOR = 245;
@@ -8,11 +9,51 @@ let size = 10;
 let undoStack = [];
 
 var canvas;
+var socket;
 
 function setup() {
   canvas = createCanvas(windowWidth * 0.5, windowHeight * 0.5);
+  socket = new WebSocket("ws://localhost:3000");
 
-  let socket = new WebSocket("ws://localhost:8080");
+  socket.onopen = ()=>{
+    console.log("Connected to server");
+  };
+
+  socket.onmessage = (event)=>{
+    if (typeof(event.data) == "string" && event.data == "clear"){
+      console.log(event.data);
+      curves = [];
+    }
+    
+    if (typeof(event.data) == "string" && event.data == "undo"){
+      console.log(event.data);
+      let lastDelCurve = curves.pop();
+      undoStack.push(lastDelCurve);
+    }
+
+    if (typeof(event.data) == "string" && event.data == "redo"){
+      console.log(event.data);
+      curve = undoStack.pop();
+      curves.push(curve);
+    }
+
+    if (typeof(event.data) == "string"){
+      console.log(event.data);
+    }
+    if (typeof(event.data) == "object") {
+      console.log("Received a curve");
+      let curve = event.data.text();
+      curve.then((data)=>{
+        let receivedCurve = new Curve();
+        const curveData = JSON.parse(data);
+        receivedCurve.type = curveData.type;
+        receivedCurve.color = curveData.color;
+        receivedCurve.weight = curveData.weight;
+        receivedCurve.points = curveData.points;
+        curves.push(receivedCurve);
+      })
+    }
+  }
 
   document.oncontextmenu = function () {
     if (mouseX < width && mouseY < height) return false;
@@ -28,6 +69,7 @@ function setup() {
   clearButton.id = "clear";
   clearButton.onclick = () => {
     curves = [];
+    socket.send("clear");
   };
 
   const undoButton = document.createElement("button");
@@ -43,6 +85,7 @@ function setup() {
       console.log(curves);
       console.log(undoStack);
       undoStack.push(lastDelCurve);
+      socket.send("undo");
     }
   };
 
@@ -54,6 +97,7 @@ function setup() {
     if (undoStack.length > 0) {
       undoedCurve = undoStack.pop();
       curves.push(undoedCurve);
+      socket.send("redo");
     }
   };
 
@@ -136,7 +180,13 @@ function mouseDragged() {
 
 function mouseReleased() {
   // check if curve is not empty
+  const senddata = (data)=>{
+    socket.send(data);
+  }
+
   console.log(currentCurve);
+  data = JSON.stringify(currentCurve);
+  senddata(data);
   if (currentCurve != null) {
     console.log("Released");
     curves.push(currentCurve);
