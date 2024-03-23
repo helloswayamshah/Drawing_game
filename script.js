@@ -13,7 +13,7 @@ var socket;
 
 function setup() {
   canvas = createCanvas(windowWidth * 0.5, windowHeight * 0.5);
-  socket = new WebSocket("wss://drawing-game-ten.vercel.app/:3000");
+  socket = new WebSocket("https://drawing-game-server.onrender.com");
 
   socket.onopen = ()=>{
     console.log("Connected to server");
