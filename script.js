@@ -13,7 +13,7 @@ var socket;
 
 function setup() {
   canvas = createCanvas(windowWidth * 0.5, windowHeight * 0.5);
-  socket = new WebSocket("wss://35.160.120.126:3000");
+  socket = new WebSocket("wss://drawing-game-g8gh.onrender.com");
 
   socket.onopen = ()=>{
     console.log("Connected to server");
