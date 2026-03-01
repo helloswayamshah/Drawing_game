@@ -33,8 +33,7 @@ To run this application locally, ensure you have Node.js installed on your machi
    ```bash
    git clone [https://github.com/helloswayamshah/drawing_game.git](https://github.com/helloswayamshah/drawing_game.git)
    cd drawing_game
-
-```
+   ```
 
 2. **Install Dependencies:**
 Install the required Node packages (`express`, `ws`, `socket.io`):
@@ -81,3 +80,4 @@ Created by Swayam Shah
 ```
 
 ```
+
