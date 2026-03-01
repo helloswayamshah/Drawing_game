@@ -37,28 +37,25 @@ To run this application locally, ensure you have Node.js installed on your machi
 
 2. **Install Dependencies:**
 Install the required Node packages (`express`, `ws`, `socket.io`):
-```bash
-npm install
-
-```
+   ```bash
+   npm install
+   ```
 
 
 3. **Update the WebSocket URL (Local Testing):**
 By default, the client is configured to connect to a production Render URL. To test locally, open `script.js` and change the socket connection string:
-```javascript
-// Change this:
-socket = new WebSocket("wss://drawing-game-g8gh.onrender.com");
-// To this:
-socket = new WebSocket("ws://localhost:3000");
-
-```
+   ```javascript
+   // Change this:
+   socket = new WebSocket("wss://drawing-game-g8gh.onrender.com");
+   // To this:
+   socket = new WebSocket("ws://localhost:3000");
+   ```
 
 
 4. **Start the Server:**
-```bash
-node server.js
-
-```
+   ```bash
+   node server.js
+   ```
 
 
 *The server will start on Port 3000.*
@@ -76,8 +73,3 @@ Open `index.html` in your web browser. Open it in multiple windows to see the re
 ## 👨‍💻 Author
 
 Created by Swayam Shah
-
-```
-
-```
-
